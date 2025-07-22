@@ -1,12 +1,18 @@
 import mongoose from "mongoose";
-const connectDB = async()=>{
-   const connect = await mongoose.connect('mongodb://0.0.0.0:27017/CRUD_App');
-   if(connect){
-    console.log('connection successfull...')
-   }else{
-    console.log("connection failed...")
-   }
-}
 
+import dotenv from 'dotenv';
+dotenv.config();
+
+const connectDB = async () => {
+  try {
+    const connect = await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("Connection successful...");
+  } catch (error) {
+    console.error("Connection failed:", error.message);
+  }
+};
 
 export default connectDB;
